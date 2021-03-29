@@ -1,0 +1,72 @@
+using System;
+
+namespace przesuwanie_kursora
+{
+    class Program
+    {
+        struct znakNaKonsoli
+        {
+            char znak;
+            public int x, y;
+
+            public znakNaKonsoli(char z, int wspX, int wspY)
+            {
+                znak = z;
+                x = wspX;
+                y = wspY;
+            }
+            public override string ToString()
+            {
+                return $"{ znak}";
+            }
+        }
+        static void Main(string[] args)
+        {
+            znakNaKonsoli znak1 = new znakNaKonsoli('#', 0, 0);
+            bool exit = false;
+            Console.WriteLine(znak1);
+
+            while((true))
+            {
+                switch(Console.ReadKey(true).Key)
+                {
+                    case ConsoleKey.RightArrow:
+                        if (znak1.x >= 0 && znak1.x<Console.WindowWidth)
+                        {
+                            znak1.x += 1;
+                        }
+                        break;
+                    case ConsoleKey.LeftArrow: 
+                        if(znak1.x>0 && znak1.x<=Console.WindowWidth)
+                        {
+                            znak1.x -= 1;
+                        }
+                        break;
+                    case ConsoleKey.UpArrow:
+                        if (znak1.y > 0 && znak1.y <= Console.WindowWidth)
+                        {
+                            znak1.y -= 1;
+                        }
+                        break;
+                    case ConsoleKey.DownArrow:
+                        if (znak1.y >= 0 && znak1.y < Console.WindowWidth)
+                        {
+                            znak1.y += 1;
+                        }
+                        break;
+                    case ConsoleKey.Escape:
+                        exit = true;
+                        break;
+                    default:
+                        break;
+                }
+                Console.Clear();
+                Console.SetCursorPosition(znak1.x, znak1.y);
+                Console.Write(znak1);
+                if (exit == true)
+                    break;
+            }
+            
+        }
+    }
+}
